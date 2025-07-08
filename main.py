@@ -1,10 +1,12 @@
+import sys
 from stats import anylize_book
 
-file = "books/frankenstein.txt"
-
-
 def main():
-    anylize_book(file)
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    else:
+        anylize_book(sys.argv[1])
 
 
 main()
