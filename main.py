@@ -1,10 +1,10 @@
 from stats import anylize_book
 
-book = "books/frankenstein.txt"
+file = "books/frankenstein.txt"
 
 
 def main():
-    anylize_book(book)
+    anylize_book(file)
 
 
 main()

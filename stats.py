@@ -2,27 +2,58 @@
 
 def anylize_book(file):
     with open(file) as f:
-        file_contents = f.read()
-        print(count_book_words(file_contents))
-        print(count_book_characters(file_contents))
+        book = f.read()
+        print("============ BOOKBOT ============")
+        print(f"Analyzing book found at {file}")
+        print("----------- Word Count ----------")
+        print(f"Found {book_words(book)} total words")
+        print("--------- Character Count -------")
+        print(book_letters(book))
+        print("============= END ===============")
+        
 
-
-def count_book_words(book):
+def book_words(book):
     word_count = book.split()
-    return f"{len(word_count)} words found in the document"
+    return len(word_count)
 
 
-def count_book_characters(book):
+def book_letters(book):
+    letter_dict = create_letter_dict(book)
+    letter_list = create_letter_list(letter_dict)
+    formatted_list = create_formatted_list(letter_list)
+    return formatted_list
+
+
+def create_letter_dict(book):
+        
     character_dict = {}
-
     for i in book:
-        if i.lower() in character_dict:
+        if i.lower() in character_dict and i.isalpha():
             character_dict[i.lower()] += 1
-        else:
+        elif i.lower() not in character_dict and i.isalpha():
             character_dict[i.lower()] = 1
-    
+        else:
+            pass
+
     return character_dict
 
 
-def sort_character_dict():
-    character_dict = count_book_characters(book)
+def create_letter_list(letter_dict):
+    character_list = []
+    for i in letter_dict:
+        character_list.append({"letter": i, "value": letter_dict[i]})
+
+    character_list.sort(reverse=True, key=sort_on)
+
+    return character_list
+
+
+def create_formatted_list(letter_list):
+    formatted_list = ""
+    for i in letter_list:
+        formatted_list += f"{i["letter"]}: {i["value"]}\n"
+    return formatted_list
+
+
+def sort_on(items):
+    return items["value"]
